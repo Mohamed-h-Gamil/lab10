@@ -20,3 +20,5 @@
 - wireless communication through blutooth module
 
 - Hardware assemply
+
+- Code Analysis using static analysis tools to check for potential vulnerabilities.
