@@ -16,7 +16,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 // LCD setup
 const byte rs = 12, en = 11, d4 = 10, d5 = 9, d6 = 8, d7 = 7;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-char buffer[33] = {0};
+char buffer[MAX_PASSCODE_LENGTH] = {0};
 byte counter = 0;
 byte trial = 0;
 bool isBlocked = false;
@@ -39,7 +39,7 @@ void display_input(const char x)
 
 void clear(void)
 {
-    memset((char *)buffer, 0, 32);
+    memset((char *)buffer, 0, MAX_PASSCODE_LENGTH);
     counter = 0;
     lcd.clear();
     lcd.setCursor(0, 1);
@@ -93,7 +93,7 @@ void get_input(void)
             {
                 clear();
             }
-            else if (checkInput(x) && counter < 32)
+            else if (checkInput(x) && counter < MAX_PASSCODE_LENGTH)
             {
                 if (!counter)
                     lcd.clear();

@@ -21,7 +21,7 @@ extern Keypad keypad;
 // LCD setup
 extern const byte rs, en, d4, d5, d6, d7;
 extern LiquidCrystal lcd;
-extern char buffer[33];
+extern char buffer[MAX_PASSCODE_LENGTH];
 extern byte counter;
 extern byte trial_count;
 
