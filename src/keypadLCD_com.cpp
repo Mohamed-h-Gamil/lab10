@@ -24,7 +24,7 @@ bool isBlocked = false;
 
 void lcd_init(void)
 {
-    lcd.begin(16,2);
+    lcd.begin(LCD_COLS,LCD_ROWS);
     lcd.setCursor(0, 1);
     lcd.print("Enter Passcode");
 }
@@ -32,7 +32,7 @@ void lcd_init(void)
 
 void display_input(const char x)
 {
-    lcd.setCursor(counter%16, counter/16);
+    lcd.setCursor(counter%LCD_COLS, counter/LCD_COLS);
     lcd.print(x);
 }
 
@@ -46,7 +46,7 @@ void clear(void)
     lcd.print("Enter Passcode");
 }
 
-
+// Reliable programming (fault tolerance)
 bool checkInput(const char x)
 {
     return (x>='0' && x<='9') || x=='A' || x=='B' || x=='C' || x=='D';
@@ -104,13 +104,12 @@ void get_input(void)
             }
             else
             {
-                // Handle invalid input (e.g., leƩers or exceeding code length)
+                // Handle invalid input (e.g., letters or exceeding code length)
                 lcd.clear();
                 lcd.setCursor(0, 1);
                 lcd.print("Invalid input");
                 delay(1000);
                 clear();
-                // resetCodeEntry();
             }
         }
         else

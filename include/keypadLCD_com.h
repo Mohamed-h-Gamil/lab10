@@ -1,7 +1,9 @@
 #ifndef _KEYPADLCD_COM_H_
 #define _KEYPADLCD_COM_H_
 
-#define MAX_TRIALS 3
+#define MAX_TRIALS 3    // define maximum number of wrong passcode trials here
+#define LCD_ROWS 2      // define number of rows in the lcd here
+#define LCD_COLS 16     // define number of columns in the lcd here
 
 #include <Keypad.h>
 #include <LiquidCrystal.h>

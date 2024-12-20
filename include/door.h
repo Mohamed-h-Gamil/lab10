@@ -3,8 +3,8 @@
 
 // definitions
 #define DOOR_PIN 6
-#define CLOSE_POS 0
-#define OPEN_POS 90
+#define CLOSE_POS 0 // 0-180 degrees
+#define OPEN_POS 90 // 0-180 degrees
 
 
 // libraries
