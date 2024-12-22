@@ -5,7 +5,7 @@
 #include <Arduino.h>
 
 #define MAX_PASSCODE_LENGTH 32
-#define PASSCODE "1234ABCD\0"
+#define PASSCODE "1234ABCD\0"   // length less than MAX_PASSCODE_LENGTH
 #define ADDRESS 55
 
 extern char Passcode[];

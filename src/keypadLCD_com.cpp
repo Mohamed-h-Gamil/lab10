@@ -16,7 +16,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 // LCD setup
 const byte rs = 12, en = 11, d4 = 10, d5 = 9, d6 = 8, d7 = 7;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-char buffer[33] = {0};
+char buffer[MAX_PASSCODE_LENGTH] = {0};
 byte counter = 0;
 byte trial = 0;
 bool isBlocked = false;
@@ -24,7 +24,7 @@ bool isBlocked = false;
 
 void lcd_init(void)
 {
-    lcd.begin(16,2);
+    lcd.begin(LCD_COLS,LCD_ROWS);
     lcd.setCursor(0, 1);
     lcd.print("Enter Passcode");
 }
@@ -32,21 +32,21 @@ void lcd_init(void)
 
 void display_input(const char x)
 {
-    lcd.setCursor(counter%16, counter/16);
+    lcd.setCursor(counter%LCD_COLS, counter/LCD_COLS);
     lcd.print(x);
 }
 
 
 void clear(void)
 {
-    memset((char *)buffer, 0, 32);
+    memset((char *)buffer, 0, MAX_PASSCODE_LENGTH);
     counter = 0;
     lcd.clear();
     lcd.setCursor(0, 1);
     lcd.print("Enter Passcode");
 }
 
-
+// Reliable programming (fault tolerance)
 bool checkInput(const char x)
 {
     return (x>='0' && x<='9') || x=='A' || x=='B' || x=='C' || x=='D';
@@ -93,7 +93,7 @@ void get_input(void)
             {
                 clear();
             }
-            else if (checkInput(x) && counter < 32)
+            else if (checkInput(x) && counter < MAX_PASSCODE_LENGTH)
             {
                 if (!counter)
                     lcd.clear();
@@ -104,13 +104,12 @@ void get_input(void)
             }
             else
             {
-                // Handle invalid input (e.g., leƩers or exceeding code length)
+                // Handle invalid input (e.g., letters or exceeding code length)
                 lcd.clear();
                 lcd.setCursor(0, 1);
                 lcd.print("Invalid input");
                 delay(1000);
                 clear();
-                // resetCodeEntry();
             }
         }
         else

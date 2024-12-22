@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <avr/wdt.h>
 
 #include <LiquidCrystal.h>
 #include <Servo.h>
@@ -7,24 +8,10 @@
 #include "keypadLCD_com.h"
 #include "passcode.h"
 
-// // Servo setup
-// Servo myServo;
-// const int servoPin = 8;
-
-// // Access code and security seƫngs
-// const int codeLength = 4;
-// char correctCode[codeLength + 1] = "1234";
-// char enteredCode[codeLength + 1];
-// int codeIndex = 0;
-// bool isLocked = true;
-
-// // EEPROM addresses for code storage
-// const int codeAddress = 0;
-
-
 void setup()
 {
     Serial.begin(9600);
+    wdt_enable(WDTO_4S);    // Reliable Programming (fault tolerance)
     lcd_init();
     door_init();
     writePasscode();
@@ -33,4 +20,5 @@ void setup()
 void loop()
 {
     get_input();
+    wdt_reset();
 }
