@@ -2,7 +2,6 @@
 #define _TAMPER_DETECTION_H_
 
 #include <Arduino.h>
-#include "door.h"
 
 //#define OPAMP_COMPARATOR    // comment if using LDR as analog input
 #define LDR_PIN A4

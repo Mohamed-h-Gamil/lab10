@@ -120,6 +120,7 @@ void get_input(void)
     }
     else if (tampered)
     {
+        close_door();
         alarmON();
         clear();
         lcd.setCursor(0, 1);
