@@ -56,7 +56,7 @@ bool checkInput(const char x)
 void get_input(void)
 {
     char x = keypad.getKey();
-    if (!isBlocked && x)
+    if (!tampered && !isBlocked && x)
     {
         if (isLocked)
         {
@@ -117,5 +117,12 @@ void get_input(void)
             close_door();
             clear();
         }
-    }   
+    }
+    else if (tampered)
+    {
+        alarmON();
+        clear();
+        lcd.setCursor(0, 1);
+        lcd.print("TAMPERING Detected");
+    }
 }

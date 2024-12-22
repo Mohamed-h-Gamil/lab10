@@ -12,7 +12,15 @@
       "left": 400,
       "attrs": { "hornColor": "black" }
     },
-    { "type": "wokwi-lcd1602", "id": "lcd", "top": 3.43, "left": 16, "attrs": {} }
+    { "type": "wokwi-lcd1602", "id": "lcd", "top": 3.43, "left": 16, "attrs": {} },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 2.4,
+      "left": -123,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": 469.1, "left": 19, "attrs": {} }
   ],
   "connections": [
     [ "uno:GND.1", "lcd:VSS", "black", [ "v-51", "*", "h0", "v18" ] ],
@@ -33,7 +41,12 @@
     [ "uno:5", "keypad:R1", "blue", [ "v-34", "h96", "*", "v12" ] ],
     [ "uno:4", "keypad:R2", "green", [ "v-30", "h80", "*", "v16" ] ],
     [ "uno:3", "keypad:R3", "purple", [ "v-26", "h64", "*", "v20" ] ],
-    [ "uno:2", "keypad:R4", "gold", [ "v-22", "h48", "*", "v24" ] ]
+    [ "uno:2", "keypad:R4", "gold", [ "v-22", "h48", "*", "v24" ] ],
+    [ "bz1:2", "uno:13", "cyan", [ "v0" ] ],
+    [ "bz1:1", "uno:GND.2", "black", [ "v326.4", "h288" ] ],
+    [ "pot1:GND", "uno:GND.2", "black", [ "v57.6", "h96" ] ],
+    [ "pot1:SIG", "uno:A4", "green", [ "v67.2", "h191.6" ] ],
+    [ "pot1:VCC", "uno:5V", "red", [ "v19.2", "h85.6" ] ]
   ],
   "dependencies": {}
 }

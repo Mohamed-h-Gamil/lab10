@@ -14,11 +14,14 @@ void setup()
     wdt_enable(WDTO_4S);    // Reliable Programming (fault tolerance)
     lcd_init();
     door_init();
+    LDR_init();
+    alarm_init();
     writePasscode();
 }
 
 void loop()
 {
     get_input();
+    detectTampering();
     wdt_reset();
 }
