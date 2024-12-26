@@ -20,7 +20,14 @@
       "left": -123,
       "attrs": { "volume": "0.1" }
     },
-    { "type": "wokwi-potentiometer", "id": "pot1", "top": 469.1, "left": 19, "attrs": {} }
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": 469.1, "left": 19, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -3.4,
+      "left": 336,
+      "attrs": { "color": "green" }
+    }
   ],
   "connections": [
     [ "uno:GND.1", "lcd:VSS", "black", [ "v-51", "*", "h0", "v18" ] ],
@@ -41,12 +48,14 @@
     [ "uno:5", "keypad:R1", "blue", [ "v-34", "h96", "*", "v12" ] ],
     [ "uno:4", "keypad:R2", "green", [ "v-30", "h80", "*", "v16" ] ],
     [ "uno:3", "keypad:R3", "purple", [ "v-26", "h64", "*", "v20" ] ],
-    [ "uno:2", "keypad:R4", "gold", [ "v-22", "h48", "*", "v24" ] ],
     [ "bz1:2", "uno:13", "cyan", [ "v0" ] ],
     [ "bz1:1", "uno:GND.2", "black", [ "v326.4", "h288" ] ],
     [ "pot1:GND", "uno:GND.2", "black", [ "v57.6", "h96" ] ],
     [ "pot1:SIG", "uno:A4", "green", [ "v67.2", "h191.6" ] ],
-    [ "pot1:VCC", "uno:5V", "red", [ "v19.2", "h85.6" ] ]
+    [ "pot1:VCC", "uno:5V", "red", [ "v19.2", "h85.6" ] ],
+    [ "keypad:R4", "uno:A5", "green", [ "v21.2", "h0.6" ] ],
+    [ "btn1:2.l", "uno:2", "green", [ "h0" ] ],
+    [ "btn1:1.l", "uno:5V", "green", [ "h-9.6", "v-76.8", "h345.6", "v633.6", "h-489.6" ] ]
   ],
   "dependencies": {}
 }

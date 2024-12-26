@@ -3,7 +3,7 @@
 
 void pir_init(){
     pinMode(PIR_PIN, INPUT); 
-
+    digitalWrite(PIR_PIN, LOW);
     // Configure INT0 (D2) for rising edge detection
     EICRA |= (1 << ISC01) | (1 << ISC00); // Set ISC01 and ISC00 for rising edge
     EIMSK |= (1 << INT0);                 // Enable external interrupt INT0
