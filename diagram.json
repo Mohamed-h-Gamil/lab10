@@ -12,7 +12,6 @@
       "left": 400,
       "attrs": { "hornColor": "black" }
     },
-    { "type": "wokwi-lcd1602", "id": "lcd", "top": 3.43, "left": 16, "attrs": {} },
     {
       "type": "wokwi-buzzer",
       "id": "bz1",
@@ -27,17 +26,16 @@
       "top": -3.4,
       "left": 336,
       "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": -70.4,
+      "left": 15.2,
+      "attrs": { "pins": "i2c" }
     }
   ],
   "connections": [
-    [ "uno:GND.1", "lcd:VSS", "black", [ "v-51", "*", "h0", "v18" ] ],
-    [ "uno:5V", "lcd:VDD", "red", [ "v16", "h-16" ] ],
-    [ "uno:12", "lcd:RS", "blue", [ "v-16", "*", "h0", "v20" ] ],
-    [ "uno:11", "lcd:E", "purple", [ "v-20", "*", "h0", "v20" ] ],
-    [ "uno:10", "lcd:D4", "green", [ "v-24", "*", "h0", "v20" ] ],
-    [ "uno:9", "lcd:D5", "brown", [ "v-28", "*", "h0", "v20" ] ],
-    [ "uno:8", "lcd:D6", "gold", [ "v-32", "*", "h0", "v20" ] ],
-    [ "uno:7", "lcd:D7", "gray", [ "v-36", "*", "h0", "v20" ] ],
     [ "uno:6", "servo:PWM", "orange", [ "v-40", "*", "h0", "h-52" ] ],
     [ "uno:5V", "servo:V+", "red", [ "v16", "h-118", "v-244", "*", "h-56" ] ],
     [ "uno:GND.1", "servo:GND", "black", [ "v-46", "*", "v88", "h-60" ] ],
@@ -48,14 +46,18 @@
     [ "uno:5", "keypad:R1", "blue", [ "v-34", "h96", "*", "v12" ] ],
     [ "uno:4", "keypad:R2", "green", [ "v-30", "h80", "*", "v16" ] ],
     [ "uno:3", "keypad:R3", "purple", [ "v-26", "h64", "*", "v20" ] ],
-    [ "bz1:2", "uno:13", "cyan", [ "v0" ] ],
     [ "bz1:1", "uno:GND.2", "black", [ "v326.4", "h288" ] ],
     [ "pot1:GND", "uno:GND.2", "black", [ "v57.6", "h96" ] ],
     [ "pot1:SIG", "uno:A4", "green", [ "v67.2", "h191.6" ] ],
     [ "pot1:VCC", "uno:5V", "red", [ "v19.2", "h85.6" ] ],
     [ "keypad:R4", "uno:A5", "green", [ "v21.2", "h0.6" ] ],
     [ "btn1:2.l", "uno:2", "green", [ "h0" ] ],
-    [ "btn1:1.l", "uno:5V", "green", [ "h-9.6", "v-76.8", "h345.6", "v633.6", "h-489.6" ] ]
+    [ "btn1:1.l", "uno:5V", "green", [ "h-9.6", "v-76.8", "h345.6", "v633.6", "h-489.6" ] ],
+    [ "bz1:2", "uno:13", "cyan", [ "v28.8", "h230" ] ],
+    [ "lcd1:GND", "uno:GND.1", "black", [ "h-48", "v144", "h163.2" ] ],
+    [ "lcd1:VCC", "uno:5V", "red", [ "h-38.4", "v470.5", "h192" ] ],
+    [ "lcd1:SDA", "uno:A4.2", "green", [ "h-28.8", "v105.8", "h124.8" ] ],
+    [ "lcd1:SCL", "uno:A5.2", "green", [ "h-19.2", "v144.3", "h105.6" ] ]
   ],
   "dependencies": {}
 }

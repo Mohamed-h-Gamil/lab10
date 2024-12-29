@@ -14,17 +14,25 @@ byte colPins[COLS] = {A3, A2, A1, A0};
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 // LCD setup
+#ifdef I2C_LCD
+LiquidCrystal_I2C lcd(LCD_I2C_ADDR, LCD_COLS, LCD_ROWS);
+#else
 const byte rs = 12, en = 11, d4 = 10, d5 = 9, d6 = 8, d7 = 7;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+#endif
 char buffer[MAX_PASSCODE_LENGTH] = {0};
 byte counter = 0;
 byte trial = 0;
 bool isBlocked = false;
 
-
 void lcd_init(void)
 {
+    #ifdef I2C_LCD
+    lcd.init();
+    //lcd.backlight();
+    #else
     lcd.begin(LCD_COLS,LCD_ROWS);
+    #endif
     lcd.setCursor(0, 1);
     lcd.print("Enter Passcode");
 }
