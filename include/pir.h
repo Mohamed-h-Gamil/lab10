@@ -6,6 +6,7 @@
 
 #include <avr/sleep.h>  // for sleep modes
 #include <avr/interrupt.h>  // for interrupts
+#include <avr/wdt.h>
 #include <Arduino.h>
 
 extern volatile uint8_t seconds;
