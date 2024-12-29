@@ -11,6 +11,7 @@
 #include "passcode.h"
 #include "tamper_detection.h"
 #include "alarm.h"
+#include "pir.h"
 
 // Keypad setup
 extern const byte ROWS;

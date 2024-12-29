@@ -58,6 +58,7 @@ void get_input(void)
     char x = keypad.getKey();
     if (!tampered && !isBlocked && x)
     {
+        reset_awake_timer();
         if (isLocked)
         {
             if (x == '#')
