@@ -9,7 +9,7 @@ char keys[ROWS][COLS] = {
     {'4', '5', '6', 'B'},
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
-byte rowPins[ROWS] = {5, 4, 3, 2};
+byte rowPins[ROWS] = {5, 4, 3, A5};
 byte colPins[COLS] = {A3, A2, A1, A0};
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
@@ -33,6 +33,7 @@ void lcd_init(void)
 void display_input(const char x)
 {
     lcd.setCursor(counter%LCD_COLS, counter/LCD_COLS);
+    Serial.println(x);
     lcd.print(x);
 }
 
@@ -58,6 +59,7 @@ void get_input(void)
     char x = keypad.getKey();
     if (!tampered && !isBlocked && x)
     {
+        reset_awake_timer();
         if (isLocked)
         {
             if (x == '#')
