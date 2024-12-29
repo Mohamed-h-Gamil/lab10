@@ -4,7 +4,7 @@
 
 volatile uint8_t seconds = 0;
 volatile uint8_t overflow = 0;
-volatile bool motionDetected = false;
+volatile bool motionDetected = true;
 
 void pir_init(){
     pinMode(PIR_PIN, INPUT); 
@@ -104,6 +104,7 @@ void sleepnow() {
     // Disable Brown out detection unit (BOD) while sleeping
     MCUCR |= (3<<5);    // set both BODS and BODSE at the same time
     MCUCR = (MCUCR & ~(1<<BODSE)) | (1 << BODS);    // the set the BODS bit and clear the BODSE bit at the same time
+    wdt_disable();
     __asm__ __volatile__("sleep");    //sleep_cpu();
 
     #ifndef OPAMP_COMPARATOR
@@ -116,7 +117,9 @@ void sleepnow() {
 
 
 ISR(INT0_vect) {
+    wdt_enable(WDTO_4S);
     motionDetected = true;  // Set the flag when motion is detected
+    EIMSK &= ~(1 << INT0);                 // Enable external interrupt INT0
     reset_awake_timer();
     enable_awake_timer();
 }
@@ -130,10 +133,12 @@ ISR(TIMER2_OVF_vect){
         {
             overflow = 0;
             seconds++;
+            Serial.println(seconds);
         }
         else
         {
             motionDetected = false;
+            EIMSK |= (1 << INT0);                 // Enable external interrupt INT0
             disable_awake_timer();
         }
     }

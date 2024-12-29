@@ -33,6 +33,7 @@ void lcd_init(void)
 void display_input(const char x)
 {
     lcd.setCursor(counter%LCD_COLS, counter/LCD_COLS);
+    Serial.println(x);
     lcd.print(x);
 }
 
