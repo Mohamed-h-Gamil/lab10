@@ -2,7 +2,7 @@
 #define _DOOR_H_
 
 // definitions
-#define DOOR_PIN 6
+#define DOOR_PIN 5
 #define CLOSE_POS 0 // 0-180 degrees
 #define OPEN_POS 90 // 0-180 degrees
 

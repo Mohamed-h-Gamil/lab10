@@ -9,8 +9,8 @@ char keys[ROWS][COLS] = {
     {'4', '5', '6', 'B'},
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
-byte rowPins[ROWS] = {5, 4, 3, A5};
-byte colPins[COLS] = {A3, A2, A1, A0};
+byte rowPins[ROWS] = {12, 11, 10, 9};
+byte colPins[COLS] = {8, 7, 6, 4};
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 // LCD setup
