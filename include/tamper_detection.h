@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 //#define OPAMP_COMPARATOR    // comment if using LDR as analog input
-#define LDR_PIN A4
+#define LDR_PIN A0
 #define LDR_THRESHOLD 64   //ldr input bin threshold ADC value
 
 

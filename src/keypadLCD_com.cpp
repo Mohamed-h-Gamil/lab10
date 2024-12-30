@@ -9,22 +9,30 @@ char keys[ROWS][COLS] = {
     {'4', '5', '6', 'B'},
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
-byte rowPins[ROWS] = {5, 4, 3, A5};
-byte colPins[COLS] = {A3, A2, A1, A0};
+byte rowPins[ROWS] = {12, 11, 10, 9};
+byte colPins[COLS] = {8, 7, 6, 4};
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 // LCD setup
+#ifdef I2C_LCD
+LiquidCrystal_I2C lcd(LCD_I2C_ADDR, LCD_COLS, LCD_ROWS);
+#else
 const byte rs = 12, en = 11, d4 = 10, d5 = 9, d6 = 8, d7 = 7;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+#endif
 char buffer[MAX_PASSCODE_LENGTH] = {0};
 byte counter = 0;
 byte trial = 0;
 bool isBlocked = false;
 
-
 void lcd_init(void)
 {
+    #ifdef I2C_LCD
+    lcd.init();
+    //lcd.backlight();
+    #else
     lcd.begin(LCD_COLS,LCD_ROWS);
+    #endif
     lcd.setCursor(0, 1);
     lcd.print("Enter Passcode");
 }
@@ -56,7 +64,9 @@ bool checkInput(const char x)
 
 void get_input(void)
 {
+
     char x = keypad.getKey();
+    lcd.backlight();
     if (!tampered && !isBlocked && x)
     {
         reset_awake_timer();
@@ -70,6 +80,7 @@ void get_input(void)
                     clear();
                     lcd.clear();
                     lcd.setCursor(0, 1);
+                    Serial.println("WELLCOME");
                     lcd.print("WELLCOME");
                 }
                 else
