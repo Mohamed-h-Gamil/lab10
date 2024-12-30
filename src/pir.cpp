@@ -95,7 +95,7 @@ void sleepnow() {
     // Disable peripherals
     Serial.println("Entering sleep mode...");
     lcd.noDisplay();
-
+    lcd.noBacklight();
     //disable ADC
     #ifndef OPAMP_COMPARATOR
     ADCSRA &= ~(1 << ADEN); // Disable ADC before sleeping
@@ -119,7 +119,7 @@ void sleepnow() {
 ISR(INT0_vect) {
     wdt_enable(WDTO_4S);
     motionDetected = true;  // Set the flag when motion is detected
-    EIMSK &= ~(1 << INT0);                 // Enable external interrupt INT0
+    EIMSK &= ~(1 << INT0);                 // disable external interrupt INT0
     reset_awake_timer();
     enable_awake_timer();
 }
