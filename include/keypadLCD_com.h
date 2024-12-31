@@ -2,6 +2,10 @@
 #define _KEYPADLCD_COM_H_
 
 #define MAX_TRIALS 3    // define maximum number of wrong passcode trials here
+#define FORGET_STAR 3
+#define BT_RX 10
+#define BT_TX 11
+
 #define I2C_LCD         // unComment if using i2c lcd
 #ifdef I2C_LCD
 #define LCD_I2C_ADDR 0x27
@@ -17,6 +21,7 @@
 #include "tamper_detection.h"
 #include "alarm.h"
 #include "pir.h"
+#include <SoftwareSerial.h>
 
 // Keypad setup
 extern const byte ROWS;
@@ -25,6 +30,7 @@ extern char keys[4][4];
 extern byte rowPins[4];
 extern byte colPins[4];
 extern Keypad keypad;
+extern SoftwareSerial BTSerial;
 
 // LCD setup
 #ifdef I2C_LCD

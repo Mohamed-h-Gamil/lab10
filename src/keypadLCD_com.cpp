@@ -1,6 +1,8 @@
 #include "keypadLCD_com.h"
 
 
+SoftwareSerial BTSerial(BT_RX, BT_TX);
+
 // Keypad setup
 const byte ROWS = 4;
 const byte COLS = 4;
@@ -22,6 +24,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 #endif
 char buffer[MAX_PASSCODE_LENGTH] = {0};
 byte counter = 0;
+byte forget_star_counter = 0;
 byte trial = 0;
 bool isBlocked = false;
 
@@ -72,6 +75,7 @@ void get_input(void)
         {
             if (x == '#')
             {
+                forget_star_counter = 0;
                 if (checkPasscode(buffer))
                 {
                     open_door();
@@ -100,11 +104,18 @@ void get_input(void)
                 }
             }
             else if (x == '*')
-            {
+            {   forget_star_counter ++;
+                if (forget_star_counter == FORGET_STAR){
+                    forget_star_counter = 0;
+                    // send bluetooth
+                    calcHASH();
+                    BTSerial.print((char *)hashResult);
+                }
                 clear();
             }
             else if (checkInput(x) && counter < MAX_PASSCODE_LENGTH)
             {
+                forget_star_counter = 0;
                 if (!counter)
                     lcd.clear();
 
@@ -114,6 +125,7 @@ void get_input(void)
             }
             else
             {
+                forget_star_counter = 0;
                 // Handle invalid input (e.g., letters or exceeding code length)
                 lcd.clear();
                 lcd.setCursor(0, 1);

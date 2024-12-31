@@ -1,6 +1,9 @@
 #include "passcode.h"
 
 char Passcode[33];
+SHA256 hash;
+byte hashResult[SHA256::HASH_SIZE];
+
 
 bool Reliable()    // Reliable Programming (fault tolerance)
 {
@@ -30,4 +33,10 @@ bool checkPasscode(char x[33])
 {
     readPasscode();
     return String(x).equals(String(Passcode));
+}
+
+void calcHASH(){
+    hash.reset();
+    hash.update(PASSCODE, sizeof(PASSCODE));
+    hash.finalize(hashResult, sizeof(hashResult));
 }

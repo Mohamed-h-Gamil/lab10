@@ -17,6 +17,7 @@
 void setup()
 {
     Serial.begin(9600);
+    BTSerial.begin(9600);
     wdt_enable(WDTO_4S);    // Reliable Programming (fault tolerance)
     lowpower_init();
     lcd_init();
