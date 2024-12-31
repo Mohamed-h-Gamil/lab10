@@ -108,13 +108,19 @@ void get_input(void)
             }
             else if (x == '*')
             {   forget_star_counter ++;
+                Serial.print("star: ");
+                Serial.println(forget_star_counter);
                 if (forget_star_counter == FORGET_STAR){
                     forget_star_counter = 0;
+                    clear();
+                    lcd.setCursor(0,1);
+                    lcd.print("Sending Auth");
                     // send bluetooth
                     calcHASH();
-                    BTSerial.print((char *)hashResult);
+                    Serial.print((char *)hashResult);
                 }
-                clear();
+                else
+                    clear();
             }
             else if (checkInput(x) && counter < MAX_PASSCODE_LENGTH)
             {
