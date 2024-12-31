@@ -67,7 +67,9 @@ bool checkInput(const char x)
 
 void get_input(void)
 {
+
     char x = keypad.getKey();
+    lcd.backlight();
     if (!tampered && !isBlocked && x)
     {
         reset_awake_timer();
@@ -82,6 +84,7 @@ void get_input(void)
                     clear();
                     lcd.clear();
                     lcd.setCursor(0, 1);
+                    Serial.println("WELLCOME");
                     lcd.print("WELLCOME");
                 }
                 else
