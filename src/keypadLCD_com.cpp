@@ -41,7 +41,7 @@ void lcd_init(void)
 void display_input(const char x)
 {
     lcd.setCursor(counter%LCD_COLS, counter/LCD_COLS);
-    Serial.println(x);
+    
     lcd.print(x);
 }
 
@@ -52,7 +52,7 @@ void clear(void)
     counter = 0;
     lcd.clear();
     lcd.setCursor(0, 1);
-    lcd.print("Enter Passcode");
+   // lcd.print("Enter Passcode");
 }
 
 // Reliable programming (fault tolerance)
@@ -74,21 +74,83 @@ void get_input(void)
         {
             if (x == '#')
             {
-                if (checkPasscode(buffer))
+               if (checkPasscode(buffer))
                 {
                     open_door();
                     clear();
                     lcd.clear();
                     lcd.setCursor(0, 1);
-                    Serial.println("WELLCOME");
-                    lcd.print("WELLCOME");
+                    Serial.println("The admin Joined The System");
+                    lcd.print("WELCOME");
+
+                    // Ask the user for a number between 0 to 23
+                    delay(2000); // Pause for 2 seconds to show the welcome message
+                    lcd.clear();
+                    lcd.setCursor(0, 0);
+                    lcd.print("Enter The hour of the History:");
+                    lcd.setCursor(0, 1);
+                    lcd.print("0-23");
+
+                    int userNumber = -1;
+                    bool validNumber = false;
+                    String input = "";
+
+                    while (!validNumber) {
+                        char key = keypad.getKey();
+
+                        if (key) { // If a key is pressed
+                            if (key >= '0' && key <= '9') {
+                                input += key; // Append the digit to the input
+                                lcd.clear();
+                                lcd.setCursor(0, 0);
+                                lcd.print("Enter number:");
+                                
+                                lcd.setCursor(0, 1);
+                                lcd.print(input);
+                            } else if (key == '#') { // '#' is used to submit the input
+                                userNumber = input.toInt(); // Convert input to an integer
+                                if (userNumber >= 0 && userNumber <= 23) {
+                                    validNumber = true;
+                                } else {
+                                    lcd.clear();
+                                    lcd.setCursor(0, 0);
+                                    lcd.print("Invalid number!");
+                                    delay(2000);
+                                    lcd.clear();
+                                    lcd.setCursor(0, 0);
+                                    lcd.print("Enter number:");
+                                    lcd.setCursor(0, 1);
+                                    lcd.print("0-23");
+                                    input = ""; // Reset input
+                                }
+                            } else if (key == '*') { // '*' is used to clear the input
+                                input = "";
+                                lcd.clear();
+                                lcd.setCursor(0, 0);
+                                lcd.print("Enter number:");
+                                lcd.setCursor(0, 1);
+                                lcd.print("0-23");
+                            }
+                        }
+                    }                  
+                    int IntruNumber = EEPROM[userNumber];
+
+                   // lcd.clear();
+                    lcd.setCursor(0, 0);
+                    lcd.print("The number of Inrustions at this hour is:");
+                    lcd.setCursor(0, 1);
+                    lcd.print(IntruNumber);
+                    delay(3000);
+                    
                 }
+
                 else
                 {
                     close_door();
                     clear();
                     lcd.clear();
                     lcd.setCursor(1, 0);
+                    Serial.println("!!!Warning, Someone is trying to access the system!!!");
                     lcd.print("ACCESS DENIED");
                     
                     trial++;
@@ -112,7 +174,7 @@ void get_input(void)
                     lcd.clear();
 
                 buffer[counter] = x;
-                display_input(x);
+                lcd.print('*');
                 counter++;
             }
             else

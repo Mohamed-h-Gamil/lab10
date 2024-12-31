@@ -17,7 +17,7 @@
 #include "tamper_detection.h"
 #include "alarm.h"
 #include "pir.h"
-
+#define TerminationKey
 // Keypad setup
 extern const byte ROWS;
 extern const byte COLS;

@@ -1,6 +1,6 @@
 #include "pir.h"
 #include "keypadLCD_com.h"
-
+#include "passcode.h"
 
 volatile uint8_t seconds = 0;
 volatile uint8_t overflow = 0;
@@ -93,7 +93,7 @@ void enable_awake_timer()
 
 void sleepnow() {
     // Disable peripherals
-    Serial.println("Entering sleep mode...");
+ //   Serial.println("Entering sleep mode...");
     lcd.noDisplay();
     lcd.noBacklight();
     //disable ADC
@@ -117,11 +117,15 @@ void sleepnow() {
 
 
 ISR(INT0_vect) {
+    //increment here 
+    incrementIntrusion();
+    Serial.println("Somebody Entered");
     wdt_enable(WDTO_4S);
     motionDetected = true;  // Set the flag when motion is detected
     EIMSK &= ~(1 << INT0);                 // disable external interrupt INT0
     reset_awake_timer();
     enable_awake_timer();
+    
 }
 
 
@@ -133,7 +137,7 @@ ISR(TIMER2_OVF_vect){
         {
             overflow = 0;
             seconds++;
-            Serial.println(seconds);
+          //  Serial.println(seconds);
         }
         else
         {
