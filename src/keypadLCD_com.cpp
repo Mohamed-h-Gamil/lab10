@@ -152,7 +152,9 @@ void get_input(void)
                     lcd.setCursor(1, 0);
                     Serial.println("!!!Warning, Someone is trying to access the system!!!");
                     lcd.print("ACCESS DENIED");
-                    
+                    digitalWrite(BUZZER_PIN, HIGH);
+                    delay(3000);
+                    digitalWrite(BUZZER_PIN, LOW);
                     trial++;
                     if (trial >= MAX_TRIALS)
                     {

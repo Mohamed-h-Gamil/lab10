@@ -19,7 +19,7 @@
 
 // Create SoftwareSerial instance for Bluetooth
 SoftwareSerial BTSerial(BT_RX, BT_TX);
-// Global or extern variable from your passcode logic
+// Global or extern variable f rom your passcode logic
 
 void setup()
 {
@@ -49,6 +49,7 @@ void loop()
         get_input();
 
         detectTampering();
+      
     }
     else{
         sleepnow();

@@ -1,6 +1,7 @@
 #include "pir.h"
 #include "keypadLCD_com.h"
 #include "passcode.h"
+#define BUZZER 13
 
 volatile uint8_t seconds = 0;
 volatile uint8_t overflow = 0;
@@ -118,6 +119,7 @@ void sleepnow() {
 
 ISR(INT0_vect) {
     //increment here 
+    
     incrementIntrusion();
     Serial.println("Somebody Entered");
     wdt_enable(WDTO_4S);
